@@ -7,7 +7,7 @@ DBPASSWORD="${3:-12345678}" # password for database (corresponding to username)
 DBUSER="${4:-admin}" # username for database
 DBNAME="${5:-WordpressDatabase}" # name of schema in the database
 
-WPDIR="$WSDIR/www/html" # Wordpress directory
+WPDIR="$WSDIR/html" # Wordpress directory
 
 ### Mount the EFS drive
 # install aws-efs-utils, mount efs drive in folder $WSDIR
@@ -21,7 +21,7 @@ sudo mkdir -p "$WPDIR"
 wget https://wordpress.org/latest.tar.gz
 tar -xzf latest.tar.gz
 
-### Generate config file for WordPress
+# Generate config file for WordPress
 cat > wordpress/wp-config.php <<EOF
 <?php
 define( 'DB_NAME', '$DBNAME' );
