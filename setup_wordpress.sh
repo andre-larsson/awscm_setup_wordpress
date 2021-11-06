@@ -54,7 +54,8 @@ yum install httpd -y
 chown -R apache $WSDIR/
 chgrp -R apache $WSDIR/
 # set directory permissions of $WSDIR and all subdirs (if any)
-chmod 2775 $WSDIR/ && find $WSDIR/ -type d -exec chmod 2775 {} \;
+chmod 2775 $WSDIR/
+find $WSDIR/ -type d -exec chmod 2775 {} \;
 # set file permissions in $WSDIR for all files (if any)
 find $WSDIR/ -type f -exec chmod 0664 {} \;
 
