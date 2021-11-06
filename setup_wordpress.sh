@@ -49,16 +49,14 @@ cp -r wordpress/* $WPDIR
 ### Create apache user group and set file permissions
 # set file permissions such that Wordpress/apache can read/write to the directory
 # see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-lamp-amazon-linux-2.html
-# create group apache
-groupadd apache
-# add user to group apache
-usermod -a -G apache ec2-user
 # change owner of $WSDIR to user=ec2-user, group=apache
-chown -R ec2-user:apache $WPDIR/
+yum install httpd -y
+chown -R apache $WSDIR/
+chgrp -R apache $WSDIR/
 # set directory permissions of $WSDIR and all subdirs (if any)
-chmod 2775 $WPDIR/ && find $WPDIR/ -type d -exec chmod 2775 {} \;
+chmod 2775 $WSDIR/ && find $WSDIR/ -type d -exec chmod 2775 {} \;
 # set file permissions in $WSDIR for all files (if any)
-find $WPDIR/ -type f -exec chmod 0664 {} \;
+find $WSDIR/ -type f -exec chmod 0664 {} \;
 
 # unmount drive
 umount efs_mnt/
