@@ -56,9 +56,9 @@ usermod -a -G apache ec2-user
 # change owner of $WSDIR to user=ec2-user, group=apache
 chown -R ec2-user:apache $WPDIR/
 # set directory permissions of $WSDIR and all subdirs (if any)
-chmod 2775 $WPDIR/ && find $WPDIR/ -type d -exec sudo chmod 2775 {} \;
+chmod 2775 $WPDIR/ && find $WPDIR/ -type d -exec chmod 2775 {} \;
 # set file permissions in $WSDIR for all files (if any)
-find $WPDIR/ -type f -exec sudo chmod 0664 {} \;
+find $WPDIR/ -type f -exec chmod 0664 {} \;
 
 # unmount drive
 umount efs_mnt/
