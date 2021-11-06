@@ -11,11 +11,11 @@ WPDIR="$WSDIR/html" # Wordpress directory
 
 ### Mount the EFS drive
 # install aws-efs-utils, mount efs drive in folder $WSDIR
-sudo yum update -y
-sudo yum install -y amazon-efs-utils
-sudo mkdir -p "$WSDIR"
-sudo mount -t efs -o tls $FSID:/ $WSDIR
-sudo mkdir -p "$WPDIR"
+yum update -y
+yum install -y amazon-efs-utils
+mkdir -p "$WSDIR"
+mount -t efs -o tls $FSID:/ $WSDIR
+mkdir -p "$WPDIR"
 
 ### Install WordPress on the EFS-drive
 wget https://wordpress.org/latest.tar.gz
@@ -44,21 +44,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once ABSPATH . 'wp-settings.php';
 EOF
 
-sudo cp -r wordpress/* $WPDIR
+cp -r wordpress/* $WPDIR
 
 ### Create apache user group and set file permissions
 # set file permissions such that Wordpress/apache can read/write to the directory
 # see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-lamp-amazon-linux-2.html
 # create group apache
-sudo groupadd apache
+groupadd apache
 # add user to group apache
-sudo usermod -a -G apache ec2-user
+usermod -a -G apache ec2-user
 # change owner of $WSDIR to user=ec2-user, group=apache
-sudo chown -R ec2-user:apache $WPDIR/
+chown -R ec2-user:apache $WPDIR/
 # set directory permissions of $WSDIR and all subdirs (if any)
-sudo chmod 2775 $WPDIR/ && find $WPDIR/ -type d -exec sudo chmod 2775 {} \;
+chmod 2775 $WPDIR/ && find $WPDIR/ -type d -exec sudo chmod 2775 {} \;
 # set file permissions in $WSDIR for all files (if any)
 find $WPDIR/ -type f -exec sudo chmod 0664 {} \;
 
 # unmount drive
-sudo umount efs_mnt/
+umount efs_mnt/
