@@ -11,7 +11,6 @@ yum update -y
 yum install -y amazon-efs-utils
 mkdir -p "$WSDIR"
 mount -t efs -o tls $FSID:/ $WSDIR
-mkdir -p "$WPDIR"
 
 ## install php, apache, php-gd
 amazon-linux-extras install php8.0 -y # php
@@ -20,4 +19,3 @@ yum install httpd php-gd -y # apache, php-gd
 cp httpd.conf /etc/httpd/conf/httpd.conf
 systemctl restart httpd
 systemctl enable httpd
-systemctl status httpd
